@@ -59,12 +59,13 @@ public:
 
   void remove(Datos llave);
   // bool empty(void) const;
-  // void clear(void);
+  void clear();
   void findDatos(Datos llave)const;
   Datos findCedula(int id)const;
   Datos findNombre(std::string a)const;
   void insert(Datos llave);
   int Informacion(Datos llave) const;
+  void inser_cont();
 
   // void display(std::ostream &out = std::cout) const;
 };

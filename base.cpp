@@ -144,18 +144,19 @@ Datos bst::findNombre(std::string a) const{
 }
 
 
-// void bst::displayTree(bstNode *root, std::ostream &out) const{
-//   if (root != nullptr){
-//     displayTree(root->left);
-//     std::cout << root->key << std::endl;
-//     displayTree(root->right);
-//   }
-// }
-//
-//
-// void bst::display(std::ostream &out) const{
-//   displayTree(tree);
-// }
+void bst::displayTree(bstNode *root, std::ostream &out) const{
+  if (root == nullptr){
+    throw std::runtime_error("No hay nada que imrpimir");
+}else{
+    std::cout << root->key << "\n";
+    displayTree(root->left,out);
+    displayTree(root->right,out);
+  }
+}
+
+void bst::display(std::ostream &out) const{
+  displayTree(tree, out);
+}
 
 
 typename bst::bstNode* bst::min(bstNode *root) const{
@@ -177,31 +178,67 @@ typename bst::bstNode* bst::max(bstNode *root) const{
   }
 }
 
-// void bst::remove(bstNode * &root, Datos llave){
-//   if (root == nullptr) return;
-//   if (llave.Getidentificacion() < root->key){
-//     remove(root->left, llave);
-//   }
-//   else if (llave.Getidentificacion() > root->key){
-//      remove(root->right, llave);
-//   }
-//   else if (root->left == nullptr){
-//     bstNode *tmp = root;
-//     root = root->right;
-//     delete tmp;
-//     count--;
-//   }
-//   else if (root->right == nullptr){
-//     bstNode *tmp = root;
-//     root = root->left;
-//     delete tmp;
-//     count--;
-//   }
-// }
+void bst::remove(bstNode * &root, Datos llave){
+   if (root == nullptr) throw std::runtime_error("No hay nada que borrar");
+   if (llave.Getidentificacion() < root->key.Getidentificacion()){
+     remove(root->left, llave);
+   }
+   else if (llave.Getidentificacion() > root->key.Getidentificacion()){
+      remove(root->right, llave);
+   }
+   else if (root->left == nullptr){
+     bstNode *tmp = root;
+     root = root->right;
+     delete tmp;
+     count--;
+   }
+   else if (root->right == nullptr){
+     bstNode *tmp = root;
+     root = root->left;
+     delete tmp;
+     count--;
+   }
+ }
 
-// void bst::remove(Datos llave){
-//   return remove(bstNode * &root, Datos llave);
-// }
+void bst::remove(Datos llave){
+   remove(tree, llave);
+}
+
+void bst::inser_cont(){
+  std::string a;
+  int b;
+  std::string c;
+  std::cout << "Inserte el nombre clave de la tupla, Si desea terminar ponga: Cerrar " << '\n';
+  std::cout << "Inserte Nombre: " << '\n';
+  std::cin >> a;
+  std::cout << "Inserte N_Identificacion (Precaucion no ponga numeros mayores de 9 digitos): " << '\n';
+  std::cin >> b;
+  std::cout << "Inserte Resultado Covid: " << '\n';
+  std::cin >> c;
+  //std::cout << a << b << c << '\n'; //Prueba de error overflow
+  // return;
+
+
+  while (a != "Cerrar") {
+    Datos nuevo;
+    nuevo.SetDatos(a, b, c);
+    insert(nuevo);
+    std::cout << "Inserte Nombre: " << '\n';
+    std::cin >> a;
+    if (a != "Cerrar") {
+      std::cout << "Inserte N_Identificacion (Precaucion no ponga numeros mayores de 9 digitos): " << '\n';
+      std::cin >> b;
+      std::cout << "Inserte Resultado Covid: " << '\n';
+      std::cin >> c;
+    } else {
+      std::cout << "Se ha detenido el proceso de insercion" << '\n';
+    }
+  }
+ }
+
+void bst::clear(){
+  count = 0;
+}
 
 
 #endif
