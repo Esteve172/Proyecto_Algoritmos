@@ -12,9 +12,9 @@ int main(){
   baseDatos.insert(Henry);
   Datos Miguel;
   Miguel.SetDatos("Miguel A", 3, "si");
-  cout << baseDatos.find(Miguel) << endl;
-  int a = 1;
-  baseDatos.findCedula(a); 
-
+  baseDatos.findDatos(Miguel);
+  cout << Alexa << endl;
+  cout << baseDatos.findCedula(0) << endl;
+  cout << baseDatos.findNombre("Henry Alberto Velandia Quintero") << endl;
   return 0;
 }

@@ -3,22 +3,22 @@
 Datos::Datos(){
 }
 
-void Datos::SetDatos(const char* a, int b,const char* c){
+void Datos::SetDatos(std::string a, int b,std::string c){
   NombreC = a;
   identificacion = b;
   covid = c;
 }
 
-const char* Datos:: Getnombre(){
+std::string Datos::Getnombre()const{
   return NombreC;
 }
 
-int Datos::Getidentificacion(){
-  return identificacion;
+std::string Datos::Getcovid()const{
+  return covid;
 }
 
-const char* Datos:: Getcovid(){
-  return covid;
+int Datos::Getidentificacion()const{
+  return identificacion;
 }
 
 bst::bst(){
@@ -31,22 +31,28 @@ bst::~bst(){
 
  bool operator<(Datos &r1,  Datos &r2){
     return r1.Getidentificacion() < r2.Getidentificacion();
-
-
  }
 
  bool operator>( Datos &r1,Datos &r2){
    return r1.Getidentificacion() > r2.Getidentificacion();
-
  }
-
 
  bool operator==( Datos &r1, Datos &r2){
    return r1.Getidentificacion() == r2.Getidentificacion();
  }
 
+ std::ostream & operator<<(std::ostream &o,const Datos& p){
+     o << "(IDENTIFICACION: " << p.Getidentificacion() << ", NOMBRE: " << p.Getnombre() << ", TUVO COVID: " << p.Getcovid() << ")";
+     return o;
+ }
 
-
+ // std::istream & operator>> (std::istream &i, Datos& p)
+ // {
+ //     cout << "Introducir nombre, número de identificacion y si tuvo COVID-19 o no : ";
+ //     i >> p.NombreC >> p.identificacion >> p.covid;
+ //     i.ignore();
+ //     return i;
+ // }
 
 void bst::insertNode(bstNode * & t, Datos llave){
   if (t == nullptr){
@@ -84,6 +90,16 @@ bool bst::find(Datos llave) const{
   return findNode(tree, llave)!= nullptr;
 }
 
+void bst::findDatos(Datos llave)const{
+  bool a = find(llave);
+  if (a == 0){
+    std::cout << "No se encuentra en el BST" << std::endl;
+  }
+  else{
+    std::cout << "Se encuentra en el BST" << std::endl;
+  }
+}
+
 
 bst::bstNode* bst::findNodeCedula(bstNode *t, int id) const{
   if (t == nullptr) return nullptr;
@@ -105,6 +121,28 @@ Datos bst::findCedula(int id) const{
     return a->key;
   }
 }
+
+bst::bstNode* bst::findNodeNombre(bstNode *t, std::string a) const{
+  if (t == nullptr) return nullptr;
+  if (a == t->key.Getnombre()) return t;
+  if (a < t->key.Getnombre()){
+    return findNodeNombre(t->left, a);
+  } else{
+    return findNodeNombre(t->right, a);
+  }
+}
+
+
+Datos bst::findNombre(std::string a) const{
+  bstNode* c =findNodeNombre(tree, a);
+  if (c == nullptr){
+    Datos b;
+    return b;
+  }else{
+    return c->key;
+  }
+}
+
 
 // void bst::displayTree(bstNode *root, std::ostream &out) const{
 //   if (root != nullptr){

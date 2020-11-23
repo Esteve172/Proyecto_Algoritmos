@@ -2,6 +2,7 @@
 #define _base_hpp_
 #include <iostream>
 #include <string>
+#include <cstring>
 
 // struct Datos {
 //   int identificacion;
@@ -10,22 +11,25 @@
 
 class Datos{
 private:
-   const char* NombreC;
+   std::string NombreC;
    int identificacion;
-   const char* covid;
+   std::string covid;
 
 public:
   Datos();
-  void SetDatos(const char*,int,const char*);
-  const char*Getnombre();
-  int Getidentificacion();
-  const char* Getcovid();
+  void SetDatos(std::string,int,std::string);
+  int Getidentificacion()const;
+  std::string Getnombre()const;
+  std::string Getcovid()const;
+
+
 };
 
  bool operator<( Datos & r1,  Datos & r2);
  bool operator>(Datos & r1, Datos & r2);
- bool operator==( Datos & r1, Datos & r2);
- // bool operator<<()
+ bool operator==(Datos & r1, Datos & r2);
+ std::ostream & operator<<(std::ostream &o,const Datos& p);
+ std::istream & operator>>(std::istream &i, Datos p);
 
 class bst{
   struct bstNode{
@@ -45,18 +49,20 @@ class bst{
   // void displayTree(bstNode *root, std::ostream &out) const;
   void insertNode(bstNode * &root, Datos llave);
   bstNode * findNode(bstNode *root, Datos llave) const;
+  bool find(Datos llave) const;
   bstNode * findNodeCedula(bstNode *root, int id) const;
+  bstNode * findNodeNombre(bstNode *root, std::string a)const;
 
 public:
   bst();
-  // bst(const bst &rhs);
   ~bst();
 
   void remove(Datos llave);
   // bool empty(void) const;
   // void clear(void);
-  bool find(Datos llave) const;
+  void findDatos(Datos llave)const;
   Datos findCedula(int id)const;
+  Datos findNombre(std::string a)const;
   void insert(Datos llave);
   int Informacion(Datos llave) const;
 
