@@ -3,6 +3,7 @@
 #include <iostream>
 #include <string>
 #include <cstring>
+#include <fstream>
 
 // struct Datos {
 //   int identificacion;
@@ -46,7 +47,9 @@ class bst{
   bstNode * min(bstNode *root) const;
   bstNode * max(bstNode *root) const;
   void remove(bstNode * &root, Datos llave);
-  // void displayTree(bstNode *root, std::ostream &out) const;
+  void displayTree(bstNode *root, std::ostream &out) const;
+  void SaveTree(bstNode *root, std::ofstream &ofs) const;
+  void ReadTree(bstNode * &root, std::istream &txt) const;
   void insertNode(bstNode * &root, Datos llave);
   bstNode * findNode(bstNode *root, Datos llave) const;
   bool find(Datos llave) const;
@@ -58,7 +61,6 @@ public:
   ~bst();
 
   void remove(Datos llave);
-  // bool empty(void) const;
   void clear();
   void findDatos(Datos llave)const;
   Datos findCedula(int id)const;
@@ -66,8 +68,9 @@ public:
   void insert(Datos llave);
   int Informacion(Datos llave) const;
   void inser_cont();
-
-  // void display(std::ostream &out = std::cout) const;
+  void Save(std::string nombre) const;
+  void Read(std::string txt) const;
+  void display(std::ostream &out = std::cout) const;
 };
 
 #include "base.cpp"
