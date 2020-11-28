@@ -5,10 +5,6 @@
 #include <cstring>
 #include <fstream>
 
-// struct Datos {
-//   int identificacion;
-//   int resultado;
-// };
 
 class Datos{
 private:
@@ -22,15 +18,15 @@ public:
   int Getidentificacion()const;
   std::string Getnombre()const;
   std::string Getcovid()const;
+  static void help();
 
 
 };
 
- bool operator<( Datos & r1,  Datos & r2);
- bool operator>(Datos & r1, Datos & r2);
- bool operator==(Datos & r1, Datos & r2);
- std::ostream & operator<<(std::ostream &o,const Datos& p);
- std::istream & operator>>(std::istream &i, Datos p);
+bool operator<( Datos & r1,  Datos & r2);
+bool operator>(Datos & r1, Datos & r2);
+bool operator==(Datos & r1, Datos & r2);
+std::ostream & operator<<(std::ostream &o,const Datos& p);
 
 class bst{
   struct bstNode{
@@ -49,7 +45,6 @@ class bst{
   void remove(bstNode * &root, Datos llave);
   void displayTree(bstNode *root, std::ostream &out) const;
   void SaveTree(bstNode *root, std::ofstream &ofs) const;
-  void ReadTree(bstNode * &root, std::istream &txt) const;
   void insertNode(bstNode * &root, Datos llave);
   bstNode * findNode(bstNode *root, Datos llave) const;
   bool find(Datos llave) const;
@@ -61,7 +56,7 @@ public:
   ~bst();
 
   void remove(Datos llave);
-  void clear();
+  void Clear();
   void findDatos(Datos llave)const;
   Datos findCedula(int id)const;
   Datos findNombre(std::string a)const;
@@ -69,8 +64,8 @@ public:
   int Informacion(Datos llave) const;
   void inser_cont();
   void Save(std::string nombre) const;
-  void Read(std::string txt) const;
   void display(std::ostream &out = std::cout) const;
+  static void help();
 };
 
 #include "base.cpp"
